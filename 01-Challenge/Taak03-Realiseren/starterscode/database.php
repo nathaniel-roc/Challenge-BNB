@@ -1,5 +1,7 @@
 <?php
-//Deze code kun je laten staan. Deze code kun je gebruiken in andere bestanden.
-$user = 'root';
-$pass = '';
-$db_conn = new PDO('mysql:host=localhost;dbname=cottagerentals', $user, $pass);
+$database_server     = 'localhost';
+$database_name        = 'cottagerentals';
+$database_user   = 'root';
+$database_passwd  = '';
+
+$conn = new PDO("mysql:host=$database_server;dbname=$database_name", $database_user, $database_passwd);

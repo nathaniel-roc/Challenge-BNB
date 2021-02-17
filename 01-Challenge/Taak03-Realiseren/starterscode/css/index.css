@@ -1,51 +1,127 @@
+* {
+  margin: 0;
+}
+
+body {
+  background-color: rgb(245, 245, 244);
+}
+
 #mapid {
-    height: 670px;
+  margin-top: 22%;
+  height: 670px;
 }
 
 main {
-    display: flex;
+  display: flex;
+  margin-top: auto;
 }
 
-main .left{
-    width: 50%;}
+main .left {
+  margin-left: 20px;
+  width: 50%;
+}
 
 main .right {
-    margin-left: 20px;
-    width: 50%;
+  margin-top: 8%;
+  margin-left: 20px;
+  width: 50%;
+  display: block;
 }
 
 .right .filter-box .homes-box {
-    width: 100%;
-    padding: 20px;
-    list-style: none;
+  width: 90%;
+  padding: 20px;
+  list-style: none;
 }
 
 footer {
-    display: flex;
-    position: static;
-    bottom: 0px;
-    height: 100px;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid blue;
+  display: flex;
+  position: static;
+  bottom: 0px;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 footer div {
-    width: 33%;
-    height: 20px;
+  width: 33%;
+  height: 20px;
 }
 
-.filter-box label{
-    width: 100px;
-    line-height: 1.8em;
+.filter-box label {
+  width: 100px;
+  line-height: 1.8em;
 }
 
-.form-control{
-    line-height: 50px;
+.form-control {
+  line-height: 50px;
 }
 
-.form-control label{
-    letter-spacing: 0.15em;
+.form-control label {
+  letter-spacing: 0.15em;
+}
 
+.text {
+  max-width: 100%;
+}
+
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: #264653;
+  color: white;
+  width: 100%;
+  height: 5%;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+a {
+  color: rgb(36, 36, 36);
+}
+
+.topnav {
+  background-color: #264653;
+  overflow: hidden;
+  flex-direction: row;
+  height: 5%;
+}
+
+.topnav h1,
+.topnav a {
+  font-size: 1.3em;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+button {
+  background-color: #264653;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 16px;
+  border: 2px solid #264653;
+}
+
+button:hover {
+  background-color: #2a9d8f;
+  color: white;
+}
+
+.center {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 2em;
+}
+
+.book {
+  margin-top: 3%;
+  display: block;
+  width: 100%;
+  align-items: center;
+  text-align: center;
 }
