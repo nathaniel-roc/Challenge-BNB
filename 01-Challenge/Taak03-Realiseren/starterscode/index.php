@@ -23,28 +23,82 @@
         $database_gegevens = null;
         $poolIsChecked = false;
         $bathIsChecked = false;
+        $IDK = null;
 
-        $sql = "SELECT * FROM homes"; //Selecteer alle huisjes uit de database
+        //Selecteer alle huisjes uit de database
+
+
 
         if (isset($_GET['filter_submit'])) {
-
-            if ($_GET['faciliteiten'] == "ligbad") { // Als ligbad is geselecteerd filter dan de zoekresultaten
-                $bathIsChecked = true;
-
-                $sql = "SELECT * FROM homes WHERE bath_present > 0"; // query die zoekt of er een BAD aanwezig is.
+            if (!empty($_GET['filter_submit'])) {
+                if ($_GET['ligbad'] ?? false == true) {
+                    $querty = "SELECT * FROM homes WHERE bath_present > 0";
+                }
+                if ($_GET['zwembad'] ?? false == "true") {
+                    if (!empty($querty) || $querty != null) {
+                        $querty .= " AND pool_present > 0";
+                    } else {
+                        $querty = "SELECT * FROM homes WHERE pool_present > 0";
+                    }
+                }
+                if ($_GET['bbq'] ?? false == "true") {
+                    if (!empty($querty) || $querty != null) {
+                        $querty .= " AND bbq_present > 0";
+                    } else {
+                        $querty = "SELECT * FROM homes WHERE bbq_present > 0";
+                    }
+                }
+                if ($_GET['wifi'] ?? false == "true") {
+                    if (!empty($querty) || $querty != null) {
+                        $querty .= " AND wifi_present > 0";
+                    } else {
+                        $querty = "SELECT * FROM homes WHERE wifi_present > 0";
+                    }
+                }
+                if ($_GET['fireplace'] ?? false == "true") {
+                    if (!empty($querty) || $querty != null) {
+                        $querty .= " AND fireplace_present > 0";
+                    } else {
+                        $querty = "SELECT * FROM homes WHERE fireplace_present > 0";
+                    }
+                }
+                if ($_GET['dishwasher'] ?? false == "true") {
+                    if (!empty($querty) || $querty != null) {
+                        $querty .= " AND dishwasher_present > 0";
+                    } else {
+                        $querty = "SELECT * FROM homes WHERE dishwasher_present > 0";
+                    }
+                }
+                if ($_GET['bike'] ?? false == "true") {
+                    if (!empty($querty) || $querty != null) {
+                        $querty .= " AND bike_rental > 0";
+                    } else {
+                        $querty = "SELECT * FROM homes WHERE bike_rental > 0";
+                    }
+                }
+                if (!empty($querty) || $querty != null) {
+                    $stmt = $conn->prepare($querty);
+                    var_dump($stmt);
+                    $stmt->execute();
+                    $database_gegevens = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } else {
+                    $stmt = $conn->prepare('SELECT * FROM homes');
+                    var_dump($stmt);
+                    $stmt->execute();
+                    $database_gegevens = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
             }
-
-            if ($_GET['faciliteiten'] == "zwembad") {
-                $poolIsChecked = true;
-
-                $sql = "SELECT * FROM homes WHERE pool_present > 0"; // query die zoekt of er een ZWEMBAD aanwezig is.
-            }
+        } else {
+            $stmt = $conn->prepare('SELECT * FROM homes');
+            var_dump($stmt);
+            $stmt->execute();
+            $database_gegevens = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
 
-        if (is_object($conn->query($sql))) { //deze if-statement controleert of een sql-query correct geschreven is en dus data ophaalt uit de DB
-            $database_gegevens = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); //deze code laten staan
-        }
+        // if (is_object($conn->query($sql))) { //deze if-statement controleert of een sql-query correct geschreven is en dus data ophaalt uit de DB
+        //     $database_gegevens = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC); //deze code laten staan
+        // }
 
 
         if (isset($_POST['gekozen_huis']) || $_POST != null) {
@@ -67,6 +121,7 @@
         </head>
 
         <body>
+            <?= $IDK ?>
             <NAV class="topnav">
                 <h1>Challenge BNB</h1>
             </NAV>
@@ -82,17 +137,39 @@
                             </div>
                             <div class="form-control">
                                 <label for="ligbad">Ligbad</label>
-                                <input type="radio" id="ligbad" name="faciliteiten" value="ligbad" <?php if ($bathIsChecked) echo 'checked' ?>>
+                                <input type="checkbox" id="ligbad" name="ligbad" value="true" <?php if ($_GET['ligbad'] ?? false) echo 'checked' ?>>
                             </div>
                             <div class="form-control">
                                 <label for="zwembad">Zwembad</label>
-                                <input type="radio" id="zwembad" name="faciliteiten" value="zwembad" <?php if ($poolIsChecked) echo 'checked' ?>>
+                                <input type="checkbox" id="zwembad" name="zwembad" value="true" <?php if ($_GET['zwembad'] ?? false) echo 'checked' ?>>
                             </div>
-                            <button type="submit" name="filter_submit">Filter</button>
+                            <div class="form-control">
+                                <label for="BBQ">BBQ</label>
+                                <input type="checkbox" id="BBQ" name="bbq" value="true" <?php if ($_GET['bbq'] ?? false) echo 'checked' ?>>
+                            </div>
+                            <div class="form-control">
+                                <label for="wifi">WIFI</label>
+                                <input type="checkbox" id="wifi" name="wifi" value="true" <?php if ($_GET['wifi'] ?? false) echo 'checked' ?>>
+                            </div>
+                            <div class="form-control">
+                                <label for="fireplace">openhaard</label>
+                                <input type="checkbox" id="fireplace" name="fireplace" value="true" <?php if ($_GET['fireplace'] ?? false) echo 'checked' ?>>
+                            </div>
+                            <div class="form-control">
+                                <label for="dishwasher">vaatwasser</label>
+                                <input type="checkbox" id="dishwasher" name="dishwasher" value="true" <?php if ($_GET['dishwasher'] ?? false) echo 'checked' ?>>
+                            </div>
+                            <div class="form-control">
+                                <label for="bike">fiets verhuur</label>
+                                <input type="checkbox" id="bike" name="bike" value="true" <?php if ($_GET['bike'] ?? false) echo 'checked' ?>>
+                            </div>
+                            <button type="submit" name="filter_submit" value="iets">Filter</button>
                         </form>
                         <div class="homes-box">
                             <?php if (isset($database_gegevens) && $database_gegevens != null) : ?>
                                 <?php foreach ($database_gegevens as $huisje) : ?>
+                                    <img src="images/<?= $huisje['image'] ?>">
+                                    <!-- de image Weustenrade heeft een andere naam in de database!!! -->
                                     <h4>
                                         <?php echo $huisje['name']; ?>
                                     </h4>
@@ -117,6 +194,36 @@
                                             }
                                             ?>
 
+                                            <?php
+                                            if ($huisje['bbq_present'] ==  1) {
+                                                echo "<li>Er is BBQ!</li>";
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if ($huisje['wifi_present'] ==  1) {
+                                                echo "<li>Er is WIFI!</li>";
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if ($huisje['fireplace_present'] ==  1) {
+                                                echo "<li>Er is open haard!</li>";
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if ($huisje['dishwasher_present'] ==  1) {
+                                                echo "<li>Er is vaatwasser!</li>";
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if ($huisje['bike_rental'] ==  1) {
+                                                echo "<li>Er is een fiets verhuur!</li>";
+                                            }
+                                            ?>
+
                                         </ul>
                                         <button type=button onClick="parent.location='index.php?id=<?= $huisje['id'] ?>'" value='reserveer'>reserveer</button>
                                     </div><br>
@@ -128,11 +235,6 @@
                     </div>
                 </div>
             </main>
-            <footer>
-                <p>© Nathaniel de Waal - ROCVA <br>
-                    <a href="mailto:nathaniel.dewaal@student.rocva.nl">nathaniel.dewaal@student.rocva.nl</a>
-                </p>
-            </footer>
             <script src="js/map_init.js"></script>
             <script>
                 // De verschillende markers moeten geplaatst worden. Vul de longitudes en latitudes uit de database hierin
