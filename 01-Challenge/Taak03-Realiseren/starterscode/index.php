@@ -23,7 +23,7 @@
         $database_gegevens = null;
         $poolIsChecked = false;
         $bathIsChecked = false;
-        $IDK = null;
+        $querty = null;
 
         //Selecteer alle huisjes uit de database
 
@@ -78,19 +78,19 @@
                 }
                 if (!empty($querty) || $querty != null) {
                     $stmt = $conn->prepare($querty);
-                    var_dump($stmt);
+                    // var_dump($stmt);
                     $stmt->execute();
                     $database_gegevens = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 } else {
                     $stmt = $conn->prepare('SELECT * FROM homes');
-                    var_dump($stmt);
+                    // var_dump($stmt);
                     $stmt->execute();
                     $database_gegevens = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
             }
         } else {
             $stmt = $conn->prepare('SELECT * FROM homes');
-            var_dump($stmt);
+            // var_dump($stmt);
             $stmt->execute();
             $database_gegevens = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -121,7 +121,7 @@
         </head>
 
         <body>
-            <?= $IDK ?>
+
             <NAV class="topnav">
                 <h1>Challenge BNB</h1>
             </NAV>
@@ -284,9 +284,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
-
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-        <!-- Make sure you put this AFTER Leaflet's CSS -->
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
         <link href="css/index.css" rel="stylesheet">
     </head>

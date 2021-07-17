@@ -34,21 +34,6 @@ main .right {
   list-style: none;
 }
 
-footer {
-  display: flex;
-  position: static;
-  bottom: 0px;
-  height: 100px;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-footer div {
-  width: 33%;
-  height: 20px;
-}
-
 .filter-box label {
   width: 100px;
   line-height: 1.8em;
